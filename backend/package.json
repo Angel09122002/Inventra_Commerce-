@@ -1,0 +1,28 @@
+{
+  "name": "inventra-commerce-backend",
+  "version": "1.0.0",
+  "description": "Inventra Commerce API — Node.js + Express + PostgreSQL",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db:init": "node sql/init.js",
+    "db:seed": "node sql/seed.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "i": "^0.3.7",
+    "nodemon": "^3.1.0",
+    "npm": "^11.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
