@@ -1,17 +1,18 @@
 import { Outlet } from "react-router-dom";
+import "./AppLayout.css";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
 export default function AppLayout() {
   return (
-    <div className="appShell">
+    <div className="app-layout">
       <Sidebar />
-      <div className="main">
+
+      <div className="app-layout__main">
         <Topbar />
-        <main className="content">
+
+        <main className="app-layout__content">
           <Outlet />
-          {/* This will render the page with out duplicating the
-          layout */}
         </main>
       </div>
     </div>

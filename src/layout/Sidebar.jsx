@@ -1,32 +1,38 @@
 import { NavLink } from "react-router-dom";
-
-const links = [
-  { to: "/", label: "Dashboard", end: true },
-  { to: "/products", label: "Products" },
-  { to: "/orders", label: "Orders" },
-];
+import "./Sidebar.css";
 
 export default function Sidebar() {
   return (
     <aside className="sidebar">
-      <div className="brand">
-        <div className="brandMark">IC</div>
+      <div className="sidebar__brand">
+        <h2>Inventra Commerce</h2>
+        <p>Admin Panel</p>
       </div>
 
-      <div className="brandName">Inventra Commerce</div>
-      <div className="brandSub">Admin Dashboard</div>
+      <nav className="sidebar__nav">
+        <NavLink to="/" end className="sidebar__link">
+          Dashboard
+        </NavLink>
 
-      <nav className="nav">
-        {links.map((l) => (
-          <NavLink
-            key={l.to}
-            to={l.to}
-            end={l.end}
-            className={({ isActive }) => `navLink ${isActive ? "active" : ""}`}
-          >
-            {l.label}
-          </NavLink>
-        ))}
+        <NavLink to="/products" className="sidebar__link">
+          Products
+        </NavLink>
+
+        <NavLink to="/orders" className="sidebar__link">
+          Orders
+        </NavLink>
+
+        <NavLink to="/customers" className="sidebar__link">
+          Customers
+        </NavLink>
+
+        <NavLink to="/inventory" className="sidebar__link">
+          Inventory
+        </NavLink>
+
+        <NavLink to="/payments" className="sidebar__link">
+          Payments
+        </NavLink>
       </nav>
     </aside>
   );

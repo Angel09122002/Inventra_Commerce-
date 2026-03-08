@@ -1,0 +1,14 @@
+.products-page {
+  width: 100%;
+}
+
+.products-page__title {
+  margin-bottom: 24px;
+  font-size: 2rem;
+}
+
+.products-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}

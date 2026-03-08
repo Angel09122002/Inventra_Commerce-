@@ -1,0 +1,17 @@
+.info-card {
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.info-card__title {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.info-card__field {
+  margin-bottom: 8px;
+  color: #e2e8f0;
+}
