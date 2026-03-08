@@ -1,8 +1,15 @@
-const asyncHandler = require('../utils/asyncHandler');
-const inventoryService = require('../services/inventory.service');
+const asyncHandler = require("../utils/asyncHandler");
+const inventoryService = require("../services/inventory.service");
+
+exports.getAllInventory = asyncHandler(async (req, res) => {
+  const data = await inventoryService.getAll();
+  res.json({ success: true, data });
+});
 
 exports.getByProduct = asyncHandler(async (req, res) => {
-  const data = await inventoryService.getByProduct(parseInt(req.params.productId, 10));
+  const data = await inventoryService.getByProduct(
+    parseInt(req.params.productId, 10),
+  );
   res.json({ success: true, data });
 });
 

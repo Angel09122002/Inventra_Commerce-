@@ -1,20 +1,39 @@
-const db = require('../lib/db');
-const ApiError = require('../utils/ApiError');
+const db = require("../lib/db");
+const ApiError = require("../utils/ApiError");
+
+const getAll = async () => {
+  const { rows } = await db.query(`
+    SELECT
+      p.product_id,
+      p.sku,
+      p.name,
+      p.price,
+      COALESCE(SUM(it.quantity_change), 0) AS current_stock
+    FROM product p
+    LEFT JOIN inventory_transaction it
+      ON p.product_id = it.product_id
+    GROUP BY p.product_id, p.sku, p.name, p.price
+    ORDER BY p.product_id
+  `);
+
+  return rows;
+};
 
 const getByProduct = async (productId) => {
   const { rows: products } = await db.query(
-    'SELECT * FROM product WHERE product_id = $1', [productId]
+    "SELECT * FROM product WHERE product_id = $1",
+    [productId],
   );
-  if (!products[0]) throw new ApiError(404, 'Product not found');
+  if (!products[0]) throw new ApiError(404, "Product not found");
 
   const { rows: transactions } = await db.query(
-    'SELECT * FROM inventory_transaction WHERE product_id = $1 ORDER BY transaction_timestamp DESC',
-    [productId]
+    "SELECT * FROM inventory_transaction WHERE product_id = $1 ORDER BY transaction_timestamp DESC",
+    [productId],
   );
 
   const { rows: stock } = await db.query(
-    'SELECT COALESCE(SUM(quantity_change), 0) AS current_stock FROM inventory_transaction WHERE product_id = $1',
-    [productId]
+    "SELECT COALESCE(SUM(quantity_change), 0) AS current_stock FROM inventory_transaction WHERE product_id = $1",
+    [productId],
   );
 
   return {
@@ -26,16 +45,17 @@ const getByProduct = async (productId) => {
 
 const restock = async ({ productId, quantity }) => {
   const { rows: products } = await db.query(
-    'SELECT * FROM product WHERE product_id = $1', [productId]
+    "SELECT * FROM product WHERE product_id = $1",
+    [productId],
   );
-  if (!products[0]) throw new ApiError(404, 'Product not found');
-  if (quantity <= 0) throw new ApiError(400, 'Quantity must be positive');
+  if (!products[0]) throw new ApiError(404, "Product not found");
+  if (quantity <= 0) throw new ApiError(400, "Quantity must be positive");
 
   const { rows } = await db.query(
-    'INSERT INTO inventory_transaction (product_id, transaction_type, quantity_change) VALUES ($1, $2, $3) RETURNING *',
-    [productId, 'RESTOCK', quantity]
+    "INSERT INTO inventory_transaction (product_id, transaction_type, quantity_change) VALUES ($1, $2, $3) RETURNING *",
+    [productId, "RESTOCK", quantity],
   );
   return rows[0];
 };
 
-module.exports = { getByProduct, restock };
+module.exports = { getAll, getByProduct, restock };
