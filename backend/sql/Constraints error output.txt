@@ -1,0 +1,22 @@
+Constraints error output:
+
+
+
+postgres=#
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+psql:C: ERROR:  duplicate key value violates unique constraint "customer_email_key"
+DETAIL: Key (email)=(jane@example.com) already exists.
+psql:C: ERROR:  insert or update on table "order" violates foreign key constraint "order_customer_id_fkey"
+DETAIL: Key (customer_id)=(99967) is not present in table "customer".
+psql:C: ERROR:  null value in column "name" of relation "product" violates not-null constraint
+DETAIL: Failing row contains (1, ERROR-SKU-101, null, 49.99).
+psql:C: ERROR:  duplicate key value violates unique constraint "payment_order_id_key"
+DETAIL: Key (order_id)=(1) already exists.
