@@ -18,11 +18,10 @@ const create = async ({ orderId, amount, paymentDate, method }) => {
   );
 
   await db.query('UPDATE "order" SET status = $1 WHERE order_id = $2', ['PAID', orderId]);
-
   return rows[0];
 };
 
-const getByOrderId = async (orderId) => {
+const getByOrderId = async orderId => {
   const { rows } = await db.query(
     'SELECT * FROM payment WHERE order_id = $1', [orderId]
   );
@@ -30,4 +29,10 @@ const getByOrderId = async (orderId) => {
   return rows[0];
 };
 
-module.exports = { create, getByOrderId };
+// New function to return all payments
+const getAll = async () => {
+  const { rows } = await db.query('SELECT * FROM payment ORDER BY payment_date DESC');
+  return rows;
+};
+
+module.exports = { create, getByOrderId, getAll };

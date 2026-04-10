@@ -1,38 +1,38 @@
-import { NavLink } from "react-router-dom";
+/* src/layout/Sidebar.jsx */
 import "./Sidebar.css";
 
 export default function Sidebar() {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar app-layout__sidebar">
       <div className="sidebar__brand">
         <h2>Inventra Commerce</h2>
         <p>Admin Panel</p>
       </div>
 
       <nav className="sidebar__nav">
-        <NavLink to="/" end className="sidebar__link">
+        <a href="/" className="sidebar__link" data-end="true">
           Dashboard
-        </NavLink>
+        </a>
 
-        <NavLink to="/products" className="sidebar__link">
+        <a href="/products" className="sidebar__link">
           Products
-        </NavLink>
+        </a>
 
-        <NavLink to="/orders" className="sidebar__link">
+        <a href="/orders" className="sidebar__link">
           Orders
-        </NavLink>
+        </a>
 
-        <NavLink to="/customers" className="sidebar__link">
+        <a href="/customers" className="sidebar__link">
           Customers
-        </NavLink>
+        </a>
 
-        <NavLink to="/inventory" className="sidebar__link">
+        <a href="/inventory" className="sidebar__link">
           Inventory
-        </NavLink>
+        </a>
 
-        <NavLink to="/payments" className="sidebar__link">
+        <a href="/payments" className="sidebar__link">
           Payments
-        </NavLink>
+        </a>
       </nav>
     </aside>
   );

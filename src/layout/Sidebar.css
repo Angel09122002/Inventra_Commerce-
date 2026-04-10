@@ -1,11 +1,23 @@
+/*
+ * Sidebar styling – dark, clean, responsive.
+ * The component is wrapped with the class
+ * "app-layout__sidebar" so the overlay rules in
+ * AppLayout.css work for mobile.
+ */
+
 .sidebar {
   background-color: #020617;
+  color: white;
+  width: 240px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid #1e293b;
-  padding: 24px 16px;
 }
 
 .sidebar__brand {
-  margin-bottom: 24px;
+  padding: 24px 16px;
+  border-bottom: 1px solid #1e293b;
 }
 
 .sidebar__brand h2 {
@@ -19,18 +31,22 @@
 }
 
 .sidebar__nav {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  padding: 16px;
+  gap: 8px;
 }
 
 .sidebar__link {
   display: block;
-  padding: 12px 16px;
-  border-radius: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
   color: white;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .sidebar__link:hover {
@@ -39,4 +55,9 @@
 
 .sidebar__link.active {
   background-color: #1e293b;
+}
+
+/* Ensure the overlay on mobile uses the same width */
+.app-layout__sidebar {
+  width: 240px;
 }
