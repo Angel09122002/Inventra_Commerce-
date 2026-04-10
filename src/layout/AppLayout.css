@@ -1,0 +1,99 @@
+/*
+ * App layout – enhanced responsiveness and overlay handling.
+ */
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background: #0d1117;
+  color: #e2e8f0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.app-layout__main {
+  display: flex;
+  flex-direction: column;
+  background: #111111;
+  min-width: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.app-layout__content {
+  padding: 32px 24px;
+
+  flex: 1;
+}
+
+/* Mobile overlay */
+.app-layout__overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+.app-layout--sidebar-open .app-layout__overlay {
+  display: block;
+}
+
+/* Mobile: sidebar becomes overlay */
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .app-layout__sidebar {
+    position: fixed;
+    inset: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    background: #111111;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .app-layout--sidebar-open .app-layout__sidebar {
+    transform: translateX(0);
+  }
+}
+
+/* Tablet 641‑768px – keep sidebar visible but add subtle gap */
+@media (min-width: 641px) and (max-width: 768px) {
+  .app-layout {
+    grid-template-columns: 240px 1fr;
+  }
+}
+
+/* Small laptop 769‑1024px – add horizontal padding to content */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .app-layout__content {
+    padding: 32px 32px;
+  }
+}
+
+/* Desktop 1025‑1440px – tighter layout */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .app-layout__content {
+    padding: 32px 48px;
+  }
+}
+
+/* Wide desktop >1440px – content centered with max width */
+/* @media (min-width: 1441px) {
+  .app-layout__content {
+    padding: 32px 64px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+} */
+@media (min-width: 1441px) {
+  .app-layout__content {
+    padding: 40px 64px;
+  }
+}

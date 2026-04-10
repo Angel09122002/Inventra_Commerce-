@@ -1,0 +1,48 @@
+/*
+ * Topbar – dark theme, subtle shadow, centered title.
+ */
+
+.topbar {
+  position: relative;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #0d1117;
+  color: #e2e8f0;
+  border-bottom: 1px solid #1e293b;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  font-weight: 600;
+}
+
+.topbar__title-container {
+  flex: 1;
+  text-align: center;
+}
+
+.topbar__title {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #e2e8f0;
+}
+
+.topbar__toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #e2e8f0;
+  cursor: pointer;
+  padding: 12px;
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .topbar__toggle {
+    display: block;
+  }
+}
