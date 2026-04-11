@@ -1,7 +1,3 @@
-/*
- * Topbar – dark theme, subtle shadow, centered title.
- */
-
 .topbar {
   position: relative;
   height: 80px;
@@ -12,7 +8,7 @@
   background: #0d1117;
   color: #e2e8f0;
   border-bottom: 1px solid #1e293b;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   font-weight: 600;
 }
 

@@ -1,4 +1,3 @@
-/* src/layout/Sidebar.jsx */
 import "./Sidebar.css";
 
 export default function Sidebar() {

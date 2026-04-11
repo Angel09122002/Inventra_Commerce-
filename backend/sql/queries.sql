@@ -1,121 +1,98 @@
+-- Query 1: Show all customers
+SELECT
+  customer_id,
+  first_name,
+  last_name,
+  email
+FROM customer
+ORDER BY customer_id;
 
--- schema from schema.sql
+-- Query 2: Show all products
+SELECT
+  product_id,
+  sku,
+  name,
+  price
+FROM product
+ORDER BY product_id;
 
-CREATE TABLE IF NOT EXISTS customer (
-  customer_id SERIAL      PRIMARY KEY,
-  first_name  VARCHAR(100) NOT NULL,
-  last_name   VARCHAR(100) NOT NULL,
-  email       VARCHAR(255) UNIQUE NOT NULL
-);
+-- Query 3: Show all orders with customer names
+SELECT
+  o.order_id,
+  c.first_name || ' ' || c.last_name AS customer_name,
+  o.order_date,
+  o.status,
+  c.first_name,
+  c.last_name,
+  c.email
+FROM "order" o
+JOIN customer c
+  ON o.customer_id = c.customer_id
+ORDER BY o.order_id;
 
-CREATE TABLE IF NOT EXISTS product (
-  product_id SERIAL        PRIMARY KEY,
-  sku        VARCHAR(100)  UNIQUE NOT NULL,
-  name       VARCHAR(255)  NOT NULL,
-  price      DECIMAL(10,2) NOT NULL
-);
+-- Query 4: Show all order items with product names
+SELECT
+  l.order_id,
+  p.name AS product_name,
+  l.quantity,
+  l.unit_price,
+  (l.quantity * l.unit_price) AS total_price
+FROM list l
+JOIN product p
+  ON l.product_id = p.product_id
+ORDER BY l.order_id, l.line_number;
 
--- "order" is a reserved word in SQL, so we quote it
-CREATE TABLE IF NOT EXISTS "order" (
-  order_id    SERIAL      PRIMARY KEY,
-  customer_id INT         NOT NULL REFERENCES customer(customer_id),
-  order_date  TIMESTAMP   DEFAULT NOW(),
-  status      VARCHAR(50) DEFAULT 'PENDING'
-);
+-- Query 5: Show all payments with order and customer info
+SELECT
+  p.payment_id,
+  o.order_id,
+  c.first_name || ' ' || c.last_name AS customer_name,
+  p.amount,
+  p.payment_date,
+  p.method,
+  p.status
+FROM payment p
+JOIN "order" o
+  ON p.order_id = o.order_id
+JOIN customer c
+  ON o.customer_id = c.customer_id
+ORDER BY p.payment_id;
 
--- Composite PK matches the ERD (OrderID + ProductID + LineNumber)
-CREATE TABLE IF NOT EXISTS list (
-  order_id    INT           NOT NULL REFERENCES "order"(order_id) ON DELETE CASCADE,
-  product_id  INT           NOT NULL REFERENCES product(product_id),
-  line_number INT           NOT NULL,
-  quantity    INT           NOT NULL,
-  unit_price  DECIMAL(10,2) NOT NULL,
-  PRIMARY KEY (order_id, product_id, line_number)
-);
+-- Query 6: Show inventory transactions with product names
+SELECT
+  it.transaction_id,
+  p.name AS product_name,
+  it.transaction_type,
+  it.quantity_change,
+  it.transaction_timestamp
+FROM inventory_transaction it
+JOIN product p
+  ON it.product_id = p.product_id
+ORDER BY p.product_id, it.transaction_timestamp;
 
-CREATE TABLE IF NOT EXISTS payment (
-  payment_id   SERIAL        PRIMARY KEY,
-  order_id     INT           UNIQUE NOT NULL REFERENCES "order"(order_id),
-  amount       DECIMAL(10,2) NOT NULL,
-  payment_date TIMESTAMP     NOT NULL,
-  method       VARCHAR(50)   NOT NULL,
-  status       VARCHAR(50)   DEFAULT 'PENDING'
-);
+-- Query 7: Show low stock products (less than 5 units)
+SELECT
+  p.product_id,
+  p.sku,
+  p.name,
+  COALESCE(SUM(it.quantity_change), 0) AS current_stock
+FROM product p
+LEFT JOIN inventory_transaction it
+  ON p.product_id = it.product_id
+GROUP BY p.product_id, p.sku, p.name
+HAVING COALESCE(SUM(it.quantity_change), 0) < 5
+ORDER BY current_stock, p.product_id;
 
-CREATE TABLE IF NOT EXISTS inventory_transaction (
-  transaction_id        SERIAL      PRIMARY KEY,
-  product_id            INT         NOT NULL REFERENCES product(product_id),
-  order_id              INT         REFERENCES "order"(order_id),
-  transaction_type      VARCHAR(50) NOT NULL,
-  quantity_change       INT         NOT NULL,
-  transaction_timestamp TIMESTAMP   DEFAULT NOW()
-);
-
-
---  seed data
-
-
--- Customers
-INSERT INTO customer (first_name, last_name, email)
-VALUES ('Jane', 'Doe', 'jane@example.com');
-
-INSERT INTO customer (first_name, last_name, email)
-VALUES ('John', 'Smith', 'john@example.com');
-
--- Products
-INSERT INTO product (name, sku, price)
-VALUES ('Laptop', 'LAP-001', 999.99);
-
-INSERT INTO product (name, sku, price)
-VALUES ('Wireless Mouse', 'MOU-001', 29.99);
-
-INSERT INTO product (name, sku, price)
-VALUES ('Mechanical Keyboard', 'KEY-001', 79.99);
-
- 
--- 3 INVENTORY RESTOCK
- 
-
- 
-INSERT INTO inventory_transaction (product_id, transaction_type, quantity_change)
-VALUES
-(1, 'RESTOCK', 25),
-(2, 'RESTOCK', 100),
-(3, 'RESTOCK', 50);
-
- 
--- 4 CREATE ORDER
- 
-
--- Assume Jane = customer_id 1
-INSERT INTO "order" (customer_id, status)
-VALUES (1, 'PENDING');
-
-
--- 5 ORDER ITEMS
-
-
-
-
-INSERT INTO list (order_id, product_id, line_number, quantity, unit_price)
-VALUES (1, 1, 1, 1, 999.99);
-
-INSERT INTO list (order_id, product_id, line_number, quantity, unit_price)
-VALUES (1, 2, 2, 1, 29.99);
-
-
--- 6 INVENTORY (SALE)
-
-
-INSERT INTO inventory_transaction (product_id, order_id, transaction_type, quantity_change)
-VALUES
-(1, 1, 'SALE', -1),
-(2, 1, 'SALE', -1);
-
-
--- 7 PAYMENT
-
-
-INSERT INTO payment (order_id, amount, payment_date, method, status)
-VALUES (1, 1029.98, NOW(), 'CREDIT_CARD', 'COMPLETED');
-
+-- Query 8: Show total amount spent by each customer
+SELECT
+  c.customer_id,
+  c.first_name,
+  c.last_name,
+  COALESCE(SUM(pay.amount), 0) AS total_spent
+FROM customer c
+LEFT JOIN "order" o
+  ON c.customer_id = o.customer_id
+LEFT JOIN payment pay
+  ON o.order_id = pay.order_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC, c.customer_id;

@@ -1,0 +1,48 @@
+1  Query 1
+2  First 5 rows:
+3  1 | Jane | Doe | jane@example.com
+4  2 | John | Smith | john@example.com
+5  Total row count: 2
+
+6  Query 2
+7  First 5 rows:
+8  1 | LAP-001 | Laptop | 999.99
+9  2 | MOU-001 | Wireless Mouse | 29.99
+10 3 | KEY-001 | Mechanical Keyboard | 79.99
+11 Total row count: 3
+
+12  Query 3
+13  First 5 rows:
+14 1 | Jane Doe | 2026-04-10 10:00:00 | PENDING | Jane | Doe | jane@example.com
+15 Total row count: 1
+
+16  Query 4
+17  First 5 rows:
+18 1 | Laptop | 1 | 999.99 | 999.99
+19 1 | Wireless Mouse | 1 | 29.99 | 29.99
+20 Total row count: 2
+
+21  Query 5
+22  First 5 rows:
+23 1 | 1 | Jane Doe | 1029.98 | 2026-04-10 10:00:00 | CREDIT_CARD | COMPLETED
+24 Total row count: 1
+
+25  Query 6
+26  First 5 rows:
+27 1 | Laptop | RESTOCK | 25 | 2026-04-10 10:00:00
+28 2 | Wireless Mouse | RESTOCK | 100 | 2026-04-10 10:00:00
+29 3 | Mechanical Keyboard | RESTOCK | 50 | 2026-04-10 10:00:00
+30 4 | Laptop | SALE | -1 | 2026-04-10 10:00:00
+31 5 | Wireless Mouse | SALE | -1 | 2026-04-10 10:00:00
+32 Total row count: 5
+
+33  Query 7
+34  First 5 rows:
+35 0 rows
+36 Total row count: 0
+
+37  Query 8
+38  First 5 rows:
+39 1 | Jane | Doe | 1029.98
+40 2 | John | Smith | 0.00
+41 Total row count: 2

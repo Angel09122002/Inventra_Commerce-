@@ -1,7 +1,3 @@
-/*
- * App layout – enhanced responsiveness and overlay handling.
- */
-
 .app-layout {
   display: grid;
   grid-template-columns: 240px 1fr;

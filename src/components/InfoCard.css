@@ -1,15 +1,10 @@
-/*
- * InfoCard styling – dark theme, modern spacing, clear label/value hierarchy.
- * The card uses a subtle shadow, rounded corners, and responsive layout.
- */
-
 .info-card {
   background: #111111;
   border: 1px solid #1e293b;
   border-radius: 16px;
   padding: 24px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   max-width: 100%;
 }
 
