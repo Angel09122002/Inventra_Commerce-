@@ -1,0 +1,8 @@
+ query_number |       table_name        | row_count
+--------------+-------------------------+----------
+            1 | customer                |        2
+            2 | product                 |        3
+            3 | order                   |        1
+            4 | list                    |        2
+            5 | payment                 |        1
+            6 | inventory_transaction   |        5
