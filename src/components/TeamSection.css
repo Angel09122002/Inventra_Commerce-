@@ -1,0 +1,102 @@
+.team-section {
+  margin-top: 2.5rem;
+}
+
+.team-section__header {
+  margin-bottom: 1.25rem;
+}
+
+.team-section__eyebrow {
+  margin: 0 0 0.35rem;
+  color: #60a5fa;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.team-section__title {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1.6rem;
+}
+
+.team-section__subtitle {
+  margin: 0.55rem 0 0;
+  color: #94a3b8;
+  max-width: 680px;
+}
+
+.team-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.team-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
+  border: 1px solid #1e293b;
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+  transform: translateY(18px);
+  animation: teamCardFadeUp 0.55s ease forwards;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+  border-color: #334155;
+}
+
+.team-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.team-card__content {
+  min-width: 0;
+}
+
+.team-card__name {
+  margin: 0 0 0.3rem;
+  color: #f8fafc;
+  font-size: 1.05rem;
+}
+
+.team-card__role {
+  margin: 0;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+@keyframes teamCardFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 700px) {
+  .team-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

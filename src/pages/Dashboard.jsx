@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
+import TeamSection from "../components/TeamSection";
 import "./Dashboard.css";
 
 export default function Dashboard() {
@@ -251,6 +252,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      <TeamSection />
     </section>
   );
 }
