@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import API_URL from "../config/api";
 import "./Customers.css";
 
 export default function Customers() {
@@ -12,8 +13,8 @@ export default function Customers() {
     const fetchData = async () => {
       try {
         const [customersRes, ordersRes] = await Promise.all([
-          fetch("http://localhost:5000/api/customers"),
-          fetch("http://localhost:5000/api/orders"),
+          fetch(`${API_URL}/api/customers`),
+          fetch(`${API_URL}/api/orders`),
         ]);
 
         if (!customersRes.ok || !ordersRes.ok) {

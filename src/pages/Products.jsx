@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../config/api";
 import "./Products.css";
 
 const DEFAULT_PRODUCT_IMAGE =
@@ -30,7 +31,7 @@ export default function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/products");
+        const response = await fetch(`${API_URL}/api/products`);
 
         if (!response.ok) {
           throw new Error("Could not load products");

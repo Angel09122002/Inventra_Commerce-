@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import API_URL from "../config/api";
 import "./Payments.css";
 
 export default function Payments() {
@@ -10,7 +11,7 @@ export default function Payments() {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/payments");
+        const response = await fetch(`${API_URL}/api/payments`);
 
         if (!response.ok) {
           throw new Error("Could not load payments");

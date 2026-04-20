@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import API_URL from "../config/api";
 import "./Inventory.css";
 
 export default function Inventory() {
@@ -10,7 +11,7 @@ export default function Inventory() {
   useEffect(() => {
     const fetchInventory = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/inventory");
+        const response = await fetch(`${API_URL}/api/inventory`);
 
         if (!response.ok) {
           throw new Error("Could not load inventory");

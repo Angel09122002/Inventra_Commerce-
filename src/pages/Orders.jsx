@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import API_URL from "../config/api";
 import "./Orders.css";
 
 export default function Orders() {
@@ -10,7 +11,7 @@ export default function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/orders");
+        const response = await fetch(`${API_URL}/api/orders`);
 
         if (!response.ok) {
           throw new Error("Could not load orders");
